@@ -17,18 +17,26 @@ document.addEventListener("DOMContentLoaded", function () {
   // Render products
   products.forEach(product => {
     const productDiv = document.createElement("div");
-    productDiv.classList.add("product");
+    productDiv.classList.add(
+      "bg-white", "p-4", "rounded-xl", "shadow-md",
+      "flex", "flex-col", "items-center", "text-center",
+      "hover:shadow-lg", "transition"
+    );
     productDiv.innerHTML = `
-      <span>${product.name} - $${product.price.toFixed(2)}</span>
-      <button data-id="${product.id}">Add to Cart</button>
+      <span class="text-lg font-semibold text-gray-800">${product.name}</span>
+      <span class="text-green-600 font-bold mb-3">$${product.price.toFixed(2)}</span>
+      <button data-id="${product.id}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-md transition flex items-center gap-2">
+        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+      </button>
     `;
     productList.appendChild(productDiv);
   });
 
   // Add to cart
   productList.addEventListener("click", (e) => {
-    if (e.target.tagName === "BUTTON") {
-      const productID = parseInt(e.target.getAttribute("data-id"));
+    if (e.target.tagName === "BUTTON" || e.target.closest("button")) {
+      const button = e.target.closest("button");
+      const productID = parseInt(button.getAttribute("data-id"));
       const product = products.find(p => p.id === productID);
       addToCart(product);
     }
@@ -65,9 +73,19 @@ document.addEventListener("DOMContentLoaded", function () {
         total += item.price;
 
         const cartItem = document.createElement("div");
+        cartItem.classList.add(
+          "flex", "justify-between", "items-center", 
+          "bg-gray-50", "p-3", "rounded-lg", "shadow-sm",
+          "hover:shadow-md", "transition"
+        );
         cartItem.innerHTML = `
-          ${item.name} - $${item.price.toFixed(2)}
-          <button data-index="${index}" class="removeBtn">❌ Remove</button>
+          <div>
+            <p class="font-semibold text-gray-800">${item.name}</p>
+            <p class="text-green-600 font-bold">$${item.price.toFixed(2)}</p>
+          </div>
+          <button data-index="${index}" class="removeBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg shadow flex items-center gap-2 transition">
+            <i class="fa-solid fa-trash"></i> Remove
+          </button>
         `;
         cartItems.appendChild(cartItem);
       });
@@ -81,17 +99,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Handle remove button click
   cartItems.addEventListener("click", (e) => {
-    if (e.target.classList.contains("removeBtn")) {
-      const index = parseInt(e.target.getAttribute("data-index"));
+    if (e.target.classList.contains("removeBtn") || e.target.closest(".removeBtn")) {
+      const index = parseInt(e.target.closest("button").getAttribute("data-index"));
       removeFromCart(index);
     }
   });
 
   // Checkout
+  checkoutBtn.classList.add(
+    "w-full", "bg-green-600", "hover:bg-green-700",
+    "text-white", "py-3", "rounded-xl", "shadow-md",
+    "transition", "font-semibold", "mt-4", "flex", "items-center", "justify-center", "gap-2"
+  );
+  checkoutBtn.innerHTML = `<i class="fa-solid fa-credit-card"></i> Checkout`;
+
   checkoutBtn.addEventListener("click", () => {
     cart.length = 0;
     saveCart();
-    alert("Checkout successful, Thank you for your purchase!");
+    alert("✅ Checkout successful! Thank you for your purchase.");
     renderCart();
   });
 

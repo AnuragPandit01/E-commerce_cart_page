@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="output.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Products</h1>
-        <div id="productList">
-            <!-- product will be dynamically added here by JS -->
-        </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="output.css">
+  
+  <!-- ✅ Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-        <h2>Shopping Cart</h2>
-        <div id="cartItems">
-            <p id="emptyCart">Your Cart is empty</p>
-        </div>
-        <div id="cartTotal" class="hidden">
-            <p>Total: <span id="totalPrice">$0.00</span></p>
-            <button id="checkoutBtn">Checkout</button>
-        </div>
+
+  <title>Shopping Cart</title>
+</head>
+<body class="bg-gradient-to-br from-orange-500 via-yellow-400 to-orange-300 min-h-screen flex items-center justify-center p-6">
+  <div class="w-full max-w-6xl bg-white/90 backdrop-blur-lg shadow-2xl rounded-2xl p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+    <!-- 🛍️ Products Section -->
+    <div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-box"></i> Products
+      </h1>
+      <div id="productList" class="flex flex-col gap-6">
+        <!-- products will be injected by JS -->
+      </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- 🛒 Cart Section -->
+    <div>
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-cart-shopping"></i> Shopping Cart
+      </h2>
+      <div id="cartItems" class="space-y-4">
+        <p id="emptyCart" class="text-gray-600 italic">Your Cart is empty</p>
+      </div>
+
+      <!-- 💳 Checkout -->
+      <div id="cartTotal" class="hidden mt-6 p-4 bg-gray-100 rounded-xl shadow-inner">
+        <p class="text-lg font-semibold flex justify-between">
+          <span>Total:</span>
+          <span id="totalPrice" class="text-green-600 font-bold">$0.00</span>
+        </p>
+        <button id="checkoutBtn" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-credit-card"></i> Checkout
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
